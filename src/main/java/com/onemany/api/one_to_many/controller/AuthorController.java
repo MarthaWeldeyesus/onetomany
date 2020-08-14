@@ -16,6 +16,10 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
+    @GetMapping(value = "/")
+    public String testApi(){
+        return "Hello API author using swagger ";
+    }
     @GetMapping(value = "/authors")
     public Page<Author> getAuthors(Pageable aPageable){
         return authorService.getListOfAuthors(aPageable);

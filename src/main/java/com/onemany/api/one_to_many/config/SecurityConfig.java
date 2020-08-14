@@ -11,16 +11,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
-        auth.inMemoryAuthentication().withUser("author").password("{noop} password").roles("AUTHOR")
-        .and().withUser("admin").password("{noop} password")
+        auth.inMemoryAuthentication().withUser("author").password("{noop}password").roles("AUTHOR")
+        .and().withUser("admin").password("{noop}password")
         .roles("AUTHOR", "ADMIN");
     }
     protected void configure(HttpSecurity http) throws Exception {
         
         http.httpBasic().and().authorizeRequests()
         .antMatchers(HttpMethod.GET, "/api/v1/authors").hasRole("USER")
-        // .antMatchers(HttpMethod.GET, "/api/v1/users/**").hasRole("USER")
-        // .antMatchers(HttpMethod.POST, "/api/v1/users").hasRole("ADMIN")
+        .antMatchers(HttpMethod.GET, "/api/v1/authors/**").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/api/v1/authors").hasRole("ADMIN")
         .and().csrf().disable().formLogin().disable();
       }
   
